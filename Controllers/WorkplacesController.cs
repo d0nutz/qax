@@ -10,10 +10,10 @@ namespace qax.Controllers
     [Route("workplaces")]
     public class WorkplacesController : ControllerBase
     {
-        private readonly InMemWorkplacesRepository repository;
-        public WorkplacesController()
+        private readonly IWorkplacesRepository repository;
+        public WorkplacesController(IWorkplacesRepository repository)
         {
-            repository = new InMemWorkplacesRepository();
+            this.repository = repository;
         }
         [HttpGet]
         public IEnumerable<Workplace> GetWorkplaces()
@@ -22,9 +22,13 @@ namespace qax.Controllers
             return workplaces;
         }
         [HttpGet("{id}")]
-        public Workplace GetWorkplace(Guid id)
+        public ActionResult<Workplace> GetWorkplace(Guid id)
         {
             var workplace = repository.GetWorkplace(id);
+            if (workplace is null)
+            {
+                return NotFound();
+            }
             return workplace;
         }
     }

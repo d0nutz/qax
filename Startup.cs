@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using qax.Repositories;
 
 namespace qax
 {
@@ -26,6 +27,8 @@ namespace qax
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //no fuckin idea why the fuck but hell yes (register depenency ofc )
+            services.AddSingleton<IWorkplacesRepository, InMemWorkplacesRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
