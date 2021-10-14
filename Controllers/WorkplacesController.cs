@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using qax.Entities;
@@ -19,6 +20,12 @@ namespace qax.Controllers
         {
             var workplaces = repository.GetWorkplaces();
             return workplaces;
+        }
+        [HttpGet("{id}")]
+        public Workplace GetWorkplace(Guid id)
+        {
+            var workplace = repository.GetWorkplace(id);
+            return workplace;
         }
     }
 }
